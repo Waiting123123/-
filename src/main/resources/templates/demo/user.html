@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户查询演示</title>
+    <style>
+        body { margin: 40px auto; padding: 0 20px; max-width: 680px; font-family: sans-serif; color: #253047; line-height: 1.6; }
+        form { margin: 24px 0 12px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        input, button { padding: 8px 12px; font: inherit; }
+        a { color: #1759b4; }
+        nav { display: flex; gap: 20px; margin-bottom: 28px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; border-bottom: 1px solid #dce2ec; text-align: left; overflow-wrap: anywhere; }
+        th { width: 35%; background: #f5f7fb; }
+    </style>
+</head>
+<body>
+<main>
+    <h1>用户查询演示</h1>
+    <p th:text="${message}"></p>
+
+    <form th:action="@{/demo/user/page}" method="get">
+        <label for="username">用户名</label>
+        <input id="username" name="username" type="text" th:value="${username}" required>
+        <button type="submit">查询</button>
+    </form>
+    <nav aria-label="示例用户">
+        <a th:href="@{/demo/user/page(username='alice')}">查看 alice</a>
+        <a th:href="@{/demo/user/page(username='bob')}">查看 bob</a>
+    </nav>
+
+    <table aria-label="用户信息">
+        <tbody>
+        <tr><th scope="row">ID</th><td th:text="${user.id}"></td></tr>
+        <tr><th scope="row">用户名</th><td th:text="${user.username}"></td></tr>
+        <tr><th scope="row">显示名称</th><td th:text="${user.displayName}"></td></tr>
+        <tr><th scope="row">角色</th><td th:text="${user.role}"></td></tr>
+        <tr><th scope="row">状态</th><td th:text="${user.status}"></td></tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

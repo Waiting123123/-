@@ -1,0 +1,10 @@
+# 复制为 application-dev.yaml，并手动填写本地 MySQL 密码。
+# application-dev.yaml 已被 Git 忽略，不提交本机数据库密码。
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/MyPetStore?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai"
+    username: root
+    password: ''
+    hikari:
+      connection-init-sql: "SET time_zone = '+08:00'"
