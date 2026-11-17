@@ -5,6 +5,7 @@
 ## 当前功能
 
 - Spring Boot 4.1.2、Spring MVC、Thymeleaf、MyBatis-Plus 3.5.18 和 MySQL 驱动集成。
+- 接入老师原型的欢迎页和首页：`/`、`/index` 返回 `index` 模板，`/main` 返回 `Main` 模板；本轮仅展示静态原型，不读取数据库。
 - `User` 实体映射 `store_user`，`UserMapper` 提供基础数据访问。
 - `UserService` 按用户名查询，只读取并返回用户展示所需的五个字段，不读取密码散列。
 - `/demo` 返回 UTF-8 文本；`/demo/user` 返回 JSON；`/demo/user/page` 渲染用户查询页面。
@@ -23,6 +24,8 @@
 
 启动后可访问：
 
+- 欢迎页：<http://localhost:8080/> 或 <http://localhost:8080/index>
+- 商城首页：<http://localhost:8080/main>
 - 文本演示：<http://localhost:8080/demo>
 - 用户 JSON：<http://localhost:8080/demo/user?username=alice>
 - 用户页面：<http://localhost:8080/demo/user/page?username=alice>
@@ -30,6 +33,10 @@
 - 不存在的用户：<http://localhost:8080/demo/user/page?username=not-exists>（预期 404）
 
 用户演示需要先准备对应数据库及示例用户。
+
+欢迎页和首页模板位于 `src/main/resources/templates`，配套 CSS 和两页引用的 14 张图片位于 `src/main/resources/static`；链接使用 Thymeleaf URL 表达式，页面地址不带 `.html`。老师原型目录未修改。
+
+本轮保留原型的静态内容与布局，尚未按 PRD 完成首页动态数据及内容调整。除欢迎页、首页互跳外，分类 `/category`、详情 `/product?sku=...`、登录 `/login`、订单 `/orders`、个人资料 `/profile`、购物车 `/cart` 仅调整为后续页面的预留路径，尚未实现，访问将返回 404；原型的登录、加购等按钮尚不执行真实业务。原型 CSS 引用 Google Fonts，无法访问时会使用备用字体。
 
 ## 单元测试
 
