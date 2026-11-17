@@ -48,6 +48,20 @@
 
 该类使用 JUnit Jupiter 和 Mockito，模拟 `UserMapper` 并构造真实 `UserService`，不启动 Spring 或连接数据库。当前 3 项测试已通过 IDEA 运行；它们不验证真实 SQL、数据库连接、HTTP 请求或模板渲染。原 `contextLoads` 测试保留，未在本轮运行。
 
+## Mapper 数据库集成测试
+
+`CatalogMapperIntegrationTest` 使用 `dev` 配置连接真实 MySQL，在无 Web 服务的 Spring 上下文中直接调用 `CategoryMapper.selectById(102L)` 和 `ProductMapper.selectById(4L)`，分别验证二级分类和商品字段映射，包括分类关系、`BigDecimal` 价格、库存、状态及 `LocalDateTime` 时间。
+
+运行前需已有教学数据和正确的本地 `application-dev.yaml`：分类 102 为 `DOGS_SUPPLIES`，商品 4 为 `K9-LEASH-01`，价格 49.90、库存 80、状态 `ON_SALE`。测试使用只读事务，禁用 SQL 初始化，不插入、修改或清空数据；若教学数据已变更，断言可能失败，不应为通过测试自动重置数据库。
+
+在 IDEA 中单独运行该测试类，或执行：
+
+```powershell
+./mvnw.cmd "-Dtest=org.csu.mypetstore.mapper.CatalogMapperIntegrationTest" test
+```
+
+当前通过 IDEA 实际运行 2 项测试，均通过，退出码为 0。这验证了本机 `dev` 数据库连接、Mapper 注册和这两条记录的读取映射，不验证写入、自增主键生成、商品查询业务或页面；未运行整个测试套件。
+
 ## 版本历史
 
 仓库地址：<https://github.com/Waiting123123/->。
